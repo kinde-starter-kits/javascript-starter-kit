@@ -55,6 +55,12 @@ a {
   text-decoration: none;
 }
 
+button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+}
+
 .text-subtle {
   color: var(--g-color-grey-600);
   font-size: var(--g-font-size-x-small);
