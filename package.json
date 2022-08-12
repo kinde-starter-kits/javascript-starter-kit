@@ -1,0 +1,10 @@
+{
+  "name": "javascript-starter-kit",
+  "version": "0.1.0",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "python -m SimpleHTTPServer 3000"
+  },
+  "license": "ISC"
+}

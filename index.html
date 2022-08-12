@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinde - JS Starter kit</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <style>
+        [hidden] {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="./styles/index.css">
+<body>
+
+<header>
+        <nav class="nav container">
+          <h1 class="text-display-3">KindeAuth</h1>
+          <div class="js-logged-out-view">
+            <button id="login" class="btn btn-ghost sign-in-btn">
+              Sign in
+            </button>
+            <button id="register" class="btn btn-dark">
+              Sign up
+            </button>
+          </div>
+          <div class="js-logged-in-view" hidden>
+            <div class="profile-blob">
+            <div class="js-user-avatar avatar"></div>
+            <div>
+              <p class="js-user-name text-heading-2"></p>
+              <button id="logout" class="text-subtle">
+                Sign out
+              </button>
+            </div>
+          </div>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <div class="container">
+          <div class="js-logged-out-view">
+            <div class="card hero">
+                <p class="text-display-1 hero-title">
+                Let's start authenticating <br /> with KindeAuth
+                </p>
+                <p class="text-body-1 hero-tagline">Configure your app</p>
+
+                <a
+                href="https://kinde.com/docs/sdks/javascript-sdk"
+                target="_blank"
+                rel="noreferrer"
+                class="btn btn-light btn-big"
+                >
+                Go to docs
+                </a>
+
+            </div>
+            </div>
+            <div class="js-logged-in-view" hidden>
+                <div className="card start-hero">
+            <p className="text-body-2 start-hero-intro">Woohoo!</p>
+            <p className="text-display-2">
+              Your authentication is all sorted.
+              <br />
+              Build the important stuff.
+            </p>
+          </div>
+          <section className="next-steps-section">
+            <h2 className="text-heading-1">Next steps for you</h2>
+          </section>
+            </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          <strong class="text-heading-2">KindeAuth</strong>
+          <p class="footer-tagline text-body-3">
+            Visit our
+            <a class="link" href="https://kinde.com/docs">
+              help center
+            </a>
+          </p>
+
+          <small class="text-subtle">
+            © 2022 KindeAuth, Inc. All rights reserved
+          </small>
+        </div>
+      </footer>
+
+    <script src="https://unpkg.com/@kinde-oss/kinde-auth-pkce-js"></script>
+
+    <script>
+    'use strict';
+
+    (async function() {
+
+        const loggedInViews = document.getElementsByClassName('js-logged-in-view');
+        const loggedOutViews = document.getElementsByClassName('js-logged-out-view');
+
+        const switchViews = (a, b) => {
+            [...a].forEach(v => v.removeAttribute('hidden'));
+            [...b].forEach(v => v.setAttribute("hidden", true));
+        }
+
+        const renderLoggedInView = (user) => {
+            const namePlaceholder = document.querySelector('.js-user-name');
+            const avatarPlaceholder = document.querySelector('.js-user-avatar');
+            namePlaceholder.textContent = `${user.first_name} ${user.last_name}`;
+            avatarPlaceholder.textContent = `${user.first_name[0]}${user.last_name[0]}`;
+            switchViews(loggedInViews, loggedOutViews);
+        }
+
+        const renderLoggedOutView = () => {
+           const loggedInViews = document.getElementsByClassName('js-logged-in-view');
+          const loggedOutViews = document.getElementsByClassName('js-logged-out-view');
+            switchViews(loggedOutViews, loggedInViews);
+        }
+
+        const kinde = await createKindeClient({
+            domain: 'http://localhost:3000',
+            redirect_uri: 'http://localhost:3000'
+        });
+
+        const render = async () => {
+            const user = await kinde.getUser();
+            if (user) {
+                renderLoggedInView(user);
+            } else {
+                renderLoggedOutView();
+            }
+        }
+
+        render();
+
+        const addKindeEvent = id => {
+            document.getElementById(id).addEventListener('click', async () => {
+                await kinde[id]();
+            });
+        }
+
+        ['login', 'register', 'logout'].forEach(addKindeEvent)
+
+        // Handle redirect
+        window.addEventListener('load', async () => {
+            await kinde.handleRedirectCallback();
+            await render();
+        });
+    })();
+    </script>
+</body>
+</html>
