@@ -44,36 +44,38 @@
 
       <main>
         <div class="container">
-          <div class="js-logged-out-view">
-            <div class="card hero">
-                <p class="text-display-1 hero-title">
-                Let's start authenticating <br /> with KindeAuth
-                </p>
-                <p class="text-body-1 hero-tagline">Configure your app</p>
 
-                <a
-                href="https://kinde.com/docs/sdks/javascript-sdk"
-                target="_blank"
-                rel="noreferrer"
-                class="btn btn-light btn-big"
-                >
-                Go to docs
-                </a>
+            <div class="js-logged-out-view">
+                <div class="card hero">
+                    <p class="text-display-1 hero-title">
+                    Let's start authenticating <br /> with KindeAuth
+                    </p>
+                    <p class="text-body-1 hero-tagline">Configure your app</p>
 
+                    <a
+                        href="https://kinde.com/docs/sdks/javascript-sdk"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="btn btn-light btn-big"
+                        >
+                        Go to docs
+                    </a>
+
+                </div>
             </div>
-            </div>
+
             <div class="js-logged-in-view" hidden>
-                <div className="card start-hero">
-            <p className="text-body-2 start-hero-intro">Woohoo!</p>
-            <p className="text-display-2">
-              Your authentication is all sorted.
-              <br />
-              Build the important stuff.
-            </p>
-          </div>
-          <section className="next-steps-section">
-            <h2 className="text-heading-1">Next steps for you</h2>
-          </section>
+                <div class="card start-hero">
+                    <p class="text-body-2 start-hero-intro">Woohoo!</p>
+                    <p class="text-display-2">
+                    Your authentication is all sorted.
+                    <br />
+                    Build the important stuff.
+                    </p>
+                </div>
+                <section class="next-steps-section">
+                    <h2 class="text-heading-1">Next steps for you</h2>
+                </section>
             </div>
         </div>
       </main>
@@ -124,7 +126,7 @@
         }
 
         const kinde = await createKindeClient({
-            domain: 'http://localhost:3000',
+            domain: 'https://your_subdomain.kinde.com',
             redirect_uri: 'http://localhost:3000'
         });
 
