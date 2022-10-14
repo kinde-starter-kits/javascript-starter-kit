@@ -114,24 +114,20 @@
         const renderLoggedInView = (user) => {
             const namePlaceholder = document.querySelector('.js-user-name');
             const avatarPlaceholder = document.querySelector('.js-user-avatar');
-            namePlaceholder.textContent = `${user.first_name} ${user.last_name}`;
-            avatarPlaceholder.textContent = `${user.first_name[0]}${user.last_name[0]}`;
+            namePlaceholder.textContent = `${user.first_name} ${user?.last_name}`;
+            avatarPlaceholder.textContent = `${user.first_name[0]}${user?.last_name?.[0]}`;
+
             switchViews(loggedInViews, loggedOutViews);
         }
 
         const renderLoggedOutView = () => {
-           const loggedInViews = document.getElementsByClassName('js-logged-in-view');
+          const loggedInViews = document.getElementsByClassName('js-logged-in-view');
           const loggedOutViews = document.getElementsByClassName('js-logged-out-view');
             switchViews(loggedOutViews, loggedInViews);
         }
 
-        const kinde = await createKindeClient({
-            domain: 'https://your_subdomain.kinde.com',
-            redirect_uri: 'http://localhost:3000'
-        });
+        const render = async (user) => {
 
-        const render = async () => {
-            const user = await kinde.getUser();
             if (user) {
                 renderLoggedInView(user);
             } else {
@@ -139,7 +135,21 @@
             }
         }
 
-        render();
+        const kinde = await createKindeClient({
+            client_id: '<your_kinde_client_id>',
+            domain: 'https://<your_subdomain>.kinde.com',
+            redirect_uri: 'http://localhost:3000',
+            on_redirect_callback: (user, appState) => {
+                console.log({user, appState});
+                if (user) {
+                    renderLoggedInView(user);
+                } else {
+                    renderLoggedOutView();
+                }
+            }
+        });
+
+
 
         const addKindeEvent = id => {
             document.getElementById(id).addEventListener('click', async () => {
@@ -151,7 +161,7 @@
 
         // Handle redirect
         window.addEventListener('load', async () => {
-            await kinde.handleRedirectCallback();
+            const user = await kinde.getUser();
             await render();
         });
     })();

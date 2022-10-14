@@ -14,12 +14,16 @@ Find this code block in the `index.html` file:
 
 ```
 const kinde = await createKindeClient({
-    domain: 'https://your_subdomain.kinde.com',
+    client_id: '<your_kinde_client_id>',
+    domain: 'https://<your_subdomain>.kinde.com',
     redirect_uri: 'http://localhost:3000'
 });
 ```
 
-Replace `https://your_subdomain.kinde.com` in the code block with with the `Token host` value from the Kinde `App Keys` page
+In the code block above replace the following placeholders with values from your Kinde `App Keys` page:
+
+- `https://<your_subdomain>.kinde.com` with the `Token host` value
+- `<your_kinde_client_id>` with the Client ID value.
 
 ## Set your Callback and Logout URLs
 
@@ -36,8 +40,6 @@ You will also need to set the url they will be redirected to upon logout. Set th
 ## Start your app
 
 Run `npm start` and navigate to `http://localhost:3000`.
-
-_Note_ This uses the built in python server that ships with Mac.
 
 Click on `Sign up` and register your first user for your business!
 
