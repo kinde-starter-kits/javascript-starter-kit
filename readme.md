@@ -15,14 +15,14 @@ Find this code block in the `index.html` file:
 ```
 const kinde = await createKindeClient({
     client_id: '<your_kinde_client_id>',
-    domain: 'https://<your_subdomain>.kinde.com',
+    domain: 'https://<your_kinde_subdomain>.kinde.com',
     redirect_uri: 'http://localhost:3000'
 });
 ```
 
-In the code block above replace the following placeholders with values from your Kinde `App Keys` page:
+In the code block above replace the following placeholders with values from your Kinde. These are found under `Settings -> Applications -> Frontend app`
 
-- `https://<your_subdomain>.kinde.com` with the `Token host` value
+- `https://<your_kinde_subdomain>.kinde.com` with the `Domain` value
 - `<your_kinde_client_id>` with the Client ID value.
 
 ## Set your Callback and Logout URLs
@@ -31,7 +31,7 @@ Your user will be redirected to Kinde to authenticate. After they have logged in
 
 You need to specify in Kinde which url you would like your user to be redirected to in order to authenticate your app.
 
-On the App Keys page set `Allowed callback URLs` to `http://localhost:3000`
+On the `Settings -> Applications -> Frontend app` page set `Allowed callback URLs` to `http://localhost:3000`
 
 > Important! This is required for your users to successfully log in to your app.
 
