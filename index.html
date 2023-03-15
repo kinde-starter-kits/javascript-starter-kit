@@ -127,7 +127,6 @@
         }
 
         const render = async (user) => {
-
             if (user) {
                 renderLoggedInView(user);
             } else {
@@ -139,6 +138,7 @@
             client_id: '<your_kinde_client_id>',
             domain: 'https://<your_kinde_subdomain.kinde.com',
             redirect_uri: 'http://localhost:3000',
+            is_dangerously_use_local_storage: true,
             on_redirect_callback: (user, appState) => {
                 console.log({user, appState});
                 if (user) {
@@ -155,13 +155,11 @@
             });
         }
 
-        ['login', 'register', 'logout'].forEach(addKindeEvent)
+        ['login', 'register', 'logout'].forEach(addKindeEvent);
 
-        // Handle redirect
-        window.addEventListener('load', async () => {
-            const user = await kinde.getUser();
-            await render();
-        });
+        // Handle page load
+        const user = await kinde.getUser();
+        await render(user);
     })();
     </script>
 </body>
