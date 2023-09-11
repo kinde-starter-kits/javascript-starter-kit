@@ -11,7 +11,7 @@
     />
     <style>
         [hidden] {
-            display: none;
+            display: none !important; 
         }
     </style>
     <link rel="stylesheet" href="./styles/index.css">
@@ -30,14 +30,19 @@
           </div>
           <div class="js-logged-in-view" hidden>
             <div class="profile-blob">
-            <div class="js-user-avatar avatar"></div>
-            <div>
-              <p class="js-user-name text-heading-2"></p>
-              <button id="logout" class="text-subtle">
-                Sign out
-              </button>
+              <div hidden class="js-user-avatar avatar"></div>
+              <img
+                class="js-user-avatar-picture avatar" 
+                alt="user profile avatar"
+                hidden
+              />
+              <div>
+                <p class="js-user-name text-heading-2"></p>
+                <button id="logout" class="text-subtle">
+                  Sign out
+                </button>
+              </div>
             </div>
-          </div>
           </div>
         </nav>
       </header>
@@ -114,8 +119,16 @@
         const renderLoggedInView = (user) => {
             const namePlaceholder = document.querySelector('.js-user-name');
             const avatarPlaceholder = document.querySelector('.js-user-avatar');
+            const avatarPicturePlaceholder = document.querySelector('.js-user-avatar-picture')
             namePlaceholder.textContent = `${user.given_name} ${user?.family_name || ''}`;
-            avatarPlaceholder.textContent = `${user.given_name[0]}${user?.family_name?.[0] || user.given_name[1]}`;
+
+            if (`${user.picture}` != '') {
+              avatarPicturePlaceholder.src = `${user.picture}`;
+              avatarPicturePlaceholder.removeAttribute('hidden');
+            } else {
+              avatarPlaceholder.textContent = `${user.given_name[0]}${user?.family_name?.[0] || user.given_name[1]}`;
+              avatarPlaceholder.removeAttribute('hidden');
+            }
 
             switchViews(loggedInViews, loggedOutViews);
         }
