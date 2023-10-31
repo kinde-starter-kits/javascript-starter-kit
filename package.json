@@ -1,10 +1,18 @@
 {
   "name": "javascript-starter-kit",
-  "version": "0.1.0",
-  "main": "index.html",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx http-server -p 3000"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "license": "ISC"
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "@kinde-oss/kinde-auth-pkce-js": "^3.0.24"
+  }
 }

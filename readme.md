@@ -10,14 +10,16 @@ Clone this repo.
 
 We are using the hosted version of the Kinde SDK for simplicity so no install required.
 
-Find this code block in the `index.html` file:
+Make a copy of `.env.example` and name it simply `.env`. Set the following values from the Kinde `Settings -> Applications -> Frontend app` page.
+
+- `VITE_KINDE_CLIENT_ID` with the `Client ID` value
+- `VITE_KINDE_DOMAIN` with the `Domain` value
+
+e.g
 
 ```
-const kinde = await createKindeClient({
-    client_id: '<your_kinde_client_id>',
-    domain: 'https://<your_kinde_subdomain>.kinde.com',
-    redirect_uri: 'http://localhost:3000'
-});
+VITE_KINDE_CLIENT_ID=<your_kinde_client_id>
+VITE_KINDE_DOMAIN=https://<your_kinde_subdomain>.kinde.com
 ```
 
 In the code block above replace the following placeholders with values from your Kinde. These are found under `Settings -> Applications -> Frontend app`
@@ -39,7 +41,7 @@ You will also need to set the url they will be redirected to upon logout. Set th
 
 ## Start your app
 
-Run `npm start` and navigate to `http://localhost:3000`.
+Run `npm run dev` and navigate to `http://localhost:3000`.
 
 Click on `Sign up` and register your first user for your business!
 
