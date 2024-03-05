@@ -48,15 +48,6 @@ const kinde = await createKindeClient({
   client_id: import.meta.env.VITE_KINDE_CLIENT_ID,
   domain: import.meta.env.VITE_KINDE_DOMAIN,
   redirect_uri: import.meta.env.VITE_KINDE_REDIRECT_URL,
-  is_dangerously_use_local_storage: true,
-  on_redirect_callback: (user, appState) => {
-    console.log({ user, appState });
-    if (user) {
-      renderLoggedInView(user);
-    } else {
-      renderLoggedOutView();
-    }
-  },
 });
 
 const addKindeEvent = (id) => {
