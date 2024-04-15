@@ -54,6 +54,7 @@ const kinde = createKindeBrowserClient({
 const q = new URLSearchParams(window.location.search);
 if (q.has('code')) {
   await kinde.handleRedirectToApp(new URL(window.location.toString()));
+  await kinde.refreshTokens();
   history.replaceState(null, "", import.meta.env.VITE_KINDE_REDIRECT_URL);
 } else {
   try {
