@@ -1,5 +1,5 @@
 import "./style.css";
-import createKindeClient from "@kinde-oss/kinde-auth-pkce-js";
+import {createKindeBrowserClient} from "@kinde-oss/kinde-typescript-sdk";
 
 const loggedInViews = document.getElementsByClassName("js-logged-in-view");
 const loggedOutViews = document.getElementsByClassName("js-logged-out-view");
@@ -44,15 +44,26 @@ const render = async (user) => {
   }
 };
 
-const kinde = await createKindeClient({
-  client_id: import.meta.env.VITE_KINDE_CLIENT_ID,
-  domain: import.meta.env.VITE_KINDE_DOMAIN,
-  redirect_uri: import.meta.env.VITE_KINDE_REDIRECT_URL,
+const kinde = createKindeBrowserClient({
+  clientId: import.meta.env.VITE_KINDE_CLIENT_ID,
+  authDomain: import.meta.env.VITE_KINDE_DOMAIN,
+  redirectURL: import.meta.env.VITE_KINDE_REDIRECT_URL,
+  logoutRedirectURL: import.meta.env.VITE_KINDE_REDIRECT_URL,
 });
+
+const q = new URLSearchParams(window.location.search);
+if (q.has('code')) {
+  await kinde.handleRedirectToApp(new URL(window.location.toString()));
+  history.replaceState(null, "", import.meta.env.VITE_KINDE_REDIRECT_URL);
+} else {
+  try {
+    await kinde.refreshTokens();
+  } catch {}
+}
 
 const addKindeEvent = (id) => {
   document.getElementById(id).addEventListener("click", async () => {
-    await kinde[id]();
+    window.location = await kinde[id]();
   });
 };
 
