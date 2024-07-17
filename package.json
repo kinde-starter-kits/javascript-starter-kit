@@ -13,6 +13,6 @@
     "vite": "^4.5.3"
   },
   "dependencies": {
-    "@kinde-oss/kinde-auth-pkce-js": "^3.0.31"
+    "@kinde-oss/kinde-auth-pkce-js": "^4.1.1"
   }
 }
