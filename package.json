@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "typescript": "^5.0.2",
-    "vite": "^4.5.3"
+    "vite": "^4.5.5"
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-pkce-js": "^4.1.1"
