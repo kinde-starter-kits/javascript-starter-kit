@@ -8,7 +8,7 @@ To get started set up an account on [Kinde](https://app.kinde.com/register).
 
 Clone this repo.
 
-We are using the hosted version of the Kinde SDK for simplicity so no install required.
+Run `npm install` to setup TypeScript, and Vite Build tool.
 
 Make a copy of `.env.example` and name it simply `.env`. Set the following values from the Kinde `Settings -> Applications -> Frontend app` page.
 
